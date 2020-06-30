@@ -1,11 +1,8 @@
 /*
- * Copyright (c) Creepinson
+ * Copyright (c) Throw Out Error
+ * https://throw-out-error.dev
  */
 
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
 package dev.throwouterror.util.math
 
 import kotlinx.serialization.Serializable
