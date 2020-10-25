@@ -47,7 +47,7 @@ kotlin {
             dependencies {
                 implementation kotlin('stdlib-js')
                 implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:0.20.0"
-                implementation "com.couch.kustom-stdlib:kustom-stdlib-js:1.1.6"
+                implementation "com.couch.kustom-stdlib:kustom-stdlib-js:1.1.7"
             }
         }
     }
