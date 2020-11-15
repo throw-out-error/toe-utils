@@ -1,7 +1,3 @@
-/*
- * Copyright (c) Throw Out Error
- * https://throw-out-error.dev
- */
 package dev.throwouterror.util.math
 
 import dev.throwouterror.util.math.Tensor.Companion.intersects

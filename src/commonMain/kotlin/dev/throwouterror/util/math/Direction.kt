@@ -1,8 +1,3 @@
-/*
- * Copyright (c) Throw Out Error
- * https://throw-out-error.dev
- */
-
 package dev.throwouterror.util.math
 
 import kotlinx.serialization.Serializable

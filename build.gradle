@@ -5,8 +5,7 @@
 
 plugins {
     id 'maven-publish'
-    id 'org.jetbrains.kotlin.plugin.serialization.gradle.plugin-1.x'
-    id 'org.jetbrains.kotlin.multiplatform' version '1.3.72'
+    id 'org.jetbrains.kotlin.multiplatform' version '1.4.10'
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.4.10'
 }
 repositories {
@@ -14,24 +13,21 @@ repositories {
     maven {
         url "https://dl.bintray.com/alexcouch/kustom-stdlib"
     }
+    maven {
+        url "https://dl.bintray.com/kotlin/kotlinx"
+    }
 }
 group 'dev.throwouterror'
 version '0.0.1'
 
 kotlin {
     jvm()
-    js {
-        browser {
-        }
-        nodejs {
-        }
-    }
 
     sourceSets {
         commonMain {
             dependencies {
                 implementation kotlin('stdlib-common')
-                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:0.20.0"
+                implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-serialization-runtime', version: '1.0-M1-1.4.0-rc'
                 implementation "com.couch.kustom-stdlib:kustom-stdlib:1.1.6"
             }
         }
@@ -39,16 +35,8 @@ kotlin {
         jvmMain {
             dependencies {
                 implementation kotlin('stdlib-jdk8')
-                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0"
+                implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-serialization-runtime', version: '1.0-M1-1.4.0-rc'
                 implementation "com.couch.kustom-stdlib:kustom-stdlib-jvm:1.1.7"
-            }
-        }
-
-        jsMain {
-            dependencies {
-                implementation kotlin('stdlib-js')
-                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:0.20.0"
-                implementation "com.couch.kustom-stdlib:kustom-stdlib-js:1.1.7"
             }
         }
     }

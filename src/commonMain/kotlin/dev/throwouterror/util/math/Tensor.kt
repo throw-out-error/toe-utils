@@ -80,7 +80,7 @@ class Tensor : Iterable<Double?> {
     fun normalize(): Tensor {
         val amt = length()
         if (amt == 0) return this
-        this.map({ v: Double -> v * amt })
+        this.map { v: Double -> v * amt }
         return this
     }
 
@@ -154,7 +154,7 @@ class Tensor : Iterable<Double?> {
     }
 
     fun add(factor: Float): Tensor {
-        return this.map({ v: Double -> v + factor })
+        return this.map { v: Double -> v + factor }
     }
 
     /**
@@ -188,7 +188,7 @@ class Tensor : Iterable<Double?> {
     }
 
     fun sub(factor: Float): Tensor {
-        return this.map({ v: Double -> v - factor })
+        return this.map { v: Double -> v - factor }
     }
 
     /**
@@ -215,7 +215,7 @@ class Tensor : Iterable<Double?> {
      * one**).
      */
     fun mul(factor: Float): Tensor {
-        this.map({ v: Double -> v * factor })
+        this.map { v: Double -> v * factor }
         return this
     }
 
