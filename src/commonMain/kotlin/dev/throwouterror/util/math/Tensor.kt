@@ -3,11 +3,11 @@
  * https://throw-out-error.dev
  */
 
-package dev.throwouterror.util.math;
+package dev.throwouterror.util.math
 
-import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmStatic
 import kotlin.math.sqrt
+import kotlinx.serialization.Serializable
 
 @Serializable
 class Tensor : Iterable<Double?> {
@@ -30,7 +30,6 @@ class Tensor : Iterable<Double?> {
      * Creates a new tensor with the specified n-dimensional data.
      */
     constructor(vararg data: Int) : this(data.map { it.toDouble() }.toDoubleArray(), intArrayOf(data.size)) {}
-
 
     /**
      * Creates a new tensor with the specified n-dimensional data. This constructor
@@ -58,7 +57,7 @@ class Tensor : Iterable<Double?> {
                 }
                 append("]\n")
             }
-            append("]\n");
+            append("]\n")
         }
     }
 
