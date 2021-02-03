@@ -344,9 +344,9 @@ class Tensor : Iterable<Double?> {
 
         @JvmStatic
         fun intersects(min: Tensor, max: Tensor): Boolean {
-            for (i in min.data.indices) {
+            for (i in min.data.indices)
                 if (min.data[i] > max.data[i] || max.data[i] < max.data[i]) return false
-            }
+
             return true
         }
 

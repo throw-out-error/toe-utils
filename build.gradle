@@ -3,43 +3,38 @@
  * https://throw-out-error.dev
  */
 
-plugins {
-    id 'org.jetbrains.kotlin.multiplatform' version '1.4.21-2'
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.4.21-2'
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
+    }
 }
+
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: "kotlin" // or 'kotlin-multiplatform' for multiplatform projects
+apply plugin: "kotlinx-serialization"
+
 repositories {
     mavenCentral()
     maven {
-        url "https://dl.bintray.com/alexcouch/kustom-stdlib"
+        url 'https://dl.bintray.com/alexcouch/kustom-stdlib'
     }
     maven {
-        url "https://dl.bintray.com/kotlin/kotlinx"
+        url 'https://dl.bintray.com/kotlin/kotlinx'
     }
 }
-apply plugin: 'maven'
-apply plugin: 'maven-publish'
 
 group 'dev.throwouterror'
 version '0.0.1'
 
-kotlin {
-    jvm()
-
-    sourceSets {
-        commonMain {
-            dependencies {
-                implementation kotlin('stdlib-common')
-                implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-serialization-runtime', version: '1.0-M1-1.4.0-rc-218'
-                implementation "com.couch.kustom-stdlib:kustom-stdlib:1.1.6"
-            }
-        }
-
-        jvmMain {
-            dependencies {
-                implementation kotlin('stdlib-jdk8')
-                implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-serialization-runtime', version: '1.0-M1-1.4.0-rc'
-                implementation "com.couch.kustom-stdlib:kustom-stdlib-jvm:1.1.7"
-            }
-        }
-    }
+dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.21-2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime:1.0-M1-1.4.0-rc'
+    api 'com.couch.kustom-stdlib:kustom-stdlib-jvm:1.1.7'
+    api "org.json:json:$json_version"
 }
