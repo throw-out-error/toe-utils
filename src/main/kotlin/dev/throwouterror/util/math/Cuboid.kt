@@ -496,12 +496,12 @@ class Cuboid {
     }
 
     fun union(other: Cuboid): Cuboid {
-        val d0: Float = min(minX, other.minX()).toFloat()
-        val d1: Float = min(minYlol, other.minY()).toFloat()
-        val d2: Float = min(minZ(), other.minZ()).toFloat()
-        val d3: Float = max(maxX(), other.maxX()).toFloat()
-        val d4: Float = max(maxY(), other.maxY()).toFloat()
-        val d5: Float = max(maxZ(), other.maxZ()).toFloat()
+        val d0: Float = min(minX, other.minX).toFloat()
+        val d1: Float = min(minY, other.minY).toFloat()
+        val d2: Float = min(minZ, other.minZ).toFloat()
+        val d3: Float = max(maxX, other.maxX).toFloat()
+        val d4: Float = max(maxY, other.maxY).toFloat()
+        val d5: Float = max(maxZ, other.maxZ).toFloat()
         return Cuboid(d0, d1, d2, d3, d4, d5)
     }
 
@@ -510,8 +510,8 @@ class Cuboid {
      */
     fun offset(x: Float, y: Float, z: Float): Cuboid {
         return Cuboid(
-            minX() + x, minY() + y, minZ() + z, maxX() + x, maxY() + y,
-            maxZ() + z
+            minX + x, minY + y, minZ + z, maxX + x, maxY + y,
+            maxZ + z
         )
     }
 
@@ -527,16 +527,16 @@ class Cuboid {
      */
     fun calculateXOffset(other: Cuboid, offsetX: Float): Float {
         var offX = offsetX
-        return if (other.maxY() > minY() && other.minY() < maxY() && other.maxZ() > minZ() && other.minZ() < maxZ()
+        return if (other.maxY > minY && other.minY < maxY && other.maxZ > minZ && other.minZ < maxZ
         ) {
-            if (offX > 0.0 && other.maxX() <= minX()) {
-                val d1 = minX() - other.maxX().toFloat()
+            if (offX > 0.0 && other.maxX <= minX) {
+                val d1 = minX - other.maxX.toFloat()
                 if (d1 < offX)
-                    offX = d1
-            } else if (offX < 0.0 && other.minX() >= maxX()) {
-                val d0 = maxX() - other.minX().toFloat()
+                    offX = d1.toFloat()
+            } else if (offX < 0.0 && other.minX >= maxX) {
+                val d0 = maxX - other.minX.toFloat()
                 if (d0 > offX)
-                    offX = d0
+                    offX = d0.toFloat()
             }
             offX
         } else
@@ -551,16 +551,16 @@ class Cuboid {
      */
     fun calculateYOffset(other: Cuboid, offsetY: Float): Float {
         var offY = offsetY
-        return if (other.maxX() > minX() && other.minX() < maxX() && other.maxZ() > minZ() && other.minZ() < maxZ()
+        return if (other.maxX > minX && other.minX < maxX && other.maxZ > minZ && other.minZ < maxZ
         ) {
-            if (offY > 0.0 && other.maxY() <= minY()) {
-                val d1 = minY() - other.maxY().toFloat()
+            if (offY > 0.0 && other.maxY <= minY) {
+                val d1 = minY - other.maxY.toFloat()
                 if (d1 < offY)
-                    offY = d1
-            } else if (offY < 0.0 && other.minY() >= maxY()) {
-                val d0 = maxY() - other.minY().toFloat()
+                    offY = d1.toFloat()
+            } else if (offY < 0.0 && other.minY >= maxY) {
+                val d0 = maxY - other.minY.toFloat()
                 if (d0 > offY)
-                    offY = d0
+                    offY = d0.toFloat()
             }
             offY
         } else
@@ -575,17 +575,17 @@ class Cuboid {
      */
     fun calculateZOffset(other: Cuboid, offsetZ: Float): Float {
         var offZ = offsetZ
-        return if (other.maxX() > minX() && other.minX() < maxX() && other.maxY() > minY() && other.minY() < maxY()
+        return if (other.maxX > minX && other.minX < maxX && other.maxY > minY && other.minY < maxY
         ) {
-            if (offZ > 0.0 && other.maxZ() <= minZ()) {
-                val d1 = minZ() - other.maxZ().toFloat()
+            if (offZ > 0.0 && other.maxZ <= minZ) {
+                val d1 = minZ - other.maxZ.toFloat()
                 if (d1 < offZ) {
-                    offZ = d1
+                    offZ = d1.toFloat()
                 }
-            } else if (offZ < 0.0 && other.minZ() >= maxZ()) {
-                val d0 = maxZ() - other.minZ().toFloat()
+            } else if (offZ < 0.0 && other.minZ >= maxZ) {
+                val d0 = maxZ - other.minZ.toFloat()
                 if (d0 > offZ) {
-                    offZ = d0
+                    offZ = d0.toFloat()
                 }
             }
             offZ
@@ -615,22 +615,22 @@ class Cuboid {
     /**
      * Returns the average length of the edges of the bounding box.
      */
-    val averageEdgeLength: Float
+    val averageEdgeLength: Double
         get() {
-            val d0 = maxX() - minX().toFloat()
-            val d1 = maxY() - minY().toFloat()
-            val d2 = maxZ() - minZ().toFloat()
+            val d0 = maxX - minX.toFloat()
+            val d1 = maxY - minY.toFloat()
+            val d2 = maxZ - minZ.toFloat()
             return (d0 + d1 + d2) / 3.0f
         }
 
     val xSize: Float
-        get() = (maxX() - minX()).toFloat()
+        get() = (maxX - minX).toFloat()
 
     val ySize: Float
-        get() = (maxY() - minY()).toFloat()
+        get() = (maxY - minY).toFloat()
 
     val zSize: Float
-        get() = (maxZ() - minZ()).toFloat()
+        get() = (maxZ - minZ).toFloat()
 
     /**
      * Creates a new [Cuboid] that is expanded by the given value in all
@@ -650,23 +650,23 @@ class Cuboid {
     }
 
     override fun toString(): String =
-        ("" + minX() + "," + minY() + "," + minZ() + ":" + maxX() + "," + maxY() + ","
-            + maxZ() + "")
+        ("" + minX + "," + minY + "," + minZ + ":" + maxX + "," + maxY + ","
+            + maxZ + "")
 
     fun toArray(size: Int): Array<DoubleArray> =
-        Tensor(minX, minY, minZ, maxPoint.x(), maxPoint.y(), maxPoint.z()).toArray(size)
+        Tensor(minX, minY, minZ, maxPoint.x, maxPoint.y, maxPoint.z).toArray(size)
 
     fun toArrayString(size: Int): String =
-        Tensor(minPoint.x(), minPoint.y(), minPoint.z(), maxPoint.x(), maxPoint.y(), maxPoint.z()).toArrayString(size)
+        Tensor(minPoint.x, minPoint.y, minPoint.z, maxPoint.x, maxPoint.y, maxPoint.z).toArrayString(size)
 
     fun toArrayString(): String = this.toArrayString(3)
 
     fun hasNaN(): Boolean = minX.toDouble().isNaN() ||
         minY.toDouble().isNaN()
         || minZ.toDouble().isNaN()
-        || maxX().toDouble().isNaN() ||
-        maxY().toDouble().isNaN()
-        || maxZ().toDouble().isNaN()
+        || maxX.toDouble().isNaN() ||
+        maxY.toDouble().isNaN()
+        || maxZ.toDouble().isNaN()
 
     override fun hashCode(): Int {
         var result = minPoint.hashCode()
@@ -676,8 +676,8 @@ class Cuboid {
 
     val center: Tensor
         get() = Tensor(
-            minX() + (maxX() - minX()) * 0.5f,
-            minY() + (maxY() - minY()) * 0.5f, minZ() + (maxZ() - minZ()) * 0.5f
+            minX + (maxX - minX) * 0.5f,
+            minY + (maxY - minY) * 0.5f, minZ + (maxZ - minZ) * 0.5f
         )
 
     enum class SizeType {
