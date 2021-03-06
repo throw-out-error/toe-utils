@@ -10,7 +10,7 @@ import kotlin.math.sqrt
 import kotlinx.serialization.Serializable
 
 @Serializable
-class Tensor : Iterable<Double?> {
+open class Tensor : Iterable<Double?> {
     var data: DoubleArray
         protected set
     var dimensions: IntArray
@@ -92,53 +92,34 @@ class Tensor : Iterable<Double?> {
         return this
     }
 
-    fun x(): Double {
-        return data[0]
-    }
-
-    fun y(): Double {
-        return data[1]
-    }
-
-    fun z(): Double {
-        return data[2]
-    }
-
-    fun w(): Double {
-        return data[3]
-    }
-
-    fun intX(): Int {
-        return x().toInt()
-    }
-
-    fun intY(): Int {
-        return y().toInt()
-    }
-
-    fun intZ(): Int {
-        return z().toInt()
-    }
-
-    fun intW(): Int {
-        return w().toInt()
-    }
-
-    fun floatX(): Float {
-        return x().toFloat()
-    }
-
-    fun floatY(): Float {
-        return y().toFloat()
-    }
-
-    fun floatZ(): Float {
-        return z().toFloat()
-    }
-
-    fun floatW(): Float {
-        return w().toFloat()
-    }
+    var x
+        get(): Double {
+            return data[0]
+        }
+        set(value) {
+            data[0] = value
+        }
+    var y
+        get(): Double {
+            return data[1]
+        }
+        set(value) {
+            data[1] = value
+        }
+    var z
+        get(): Double {
+            return data[2]
+        }
+        set(value) {
+            data[2] = value
+        }
+    var w
+        get(): Double {
+            return data[3]
+        }
+        set(value) {
+            data[3] = value
+        }
 
     /**
      * @param other to add
@@ -251,17 +232,21 @@ class Tensor : Iterable<Double?> {
      */
     fun cross(vec2: Tensor): Tensor {
         return Tensor(
-            y() * vec2.z() - z() * vec2.y(), z() * vec2.x() - x() * vec2.z(),
-            x() * vec2.y() - y() * vec2.x()
+            y * vec2.z - z * vec2.y, z * vec2.x - x * vec2.z,
+            x * vec2.y - y * vec2.x
         )
     }
 
     override fun equals(other: Any?): Boolean {
-        return if (other is Tensor) {
-            other.data.contentEquals(data)
-        } else if (other is Number) {
-            data.all { v: Double -> v == other.toDouble() }
-        } else false
+        return when (other) {
+            is Tensor -> {
+                other.data.contentEquals(data)
+            }
+            is Number -> {
+                data.all { v: Double -> v == other.toDouble() }
+            }
+            else -> false
+        }
     }
 
     fun distanceTo(other: Tensor): Float {
@@ -326,6 +311,12 @@ class Tensor : Iterable<Double?> {
         fun remove() {
             throw UnsupportedOperationException()
         }
+    }
+
+    override fun hashCode(): Int {
+        var result = data.contentHashCode()
+        result = 31 * result + dimensions.contentHashCode()
+        return result
     }
 
     val isEmpty: Boolean

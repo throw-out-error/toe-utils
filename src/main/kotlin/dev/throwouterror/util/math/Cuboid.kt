@@ -7,29 +7,51 @@ import kotlin.math.min
 
 @Serializable
 class Cuboid {
-    fun minX(): Int {
-        return minPoint.intX()
-    }
 
-    fun minY(): Int {
-        return minPoint.intY()
-    }
+    var minX
+        get(): Double {
+            return minPoint.x
+        }
+        set(value) {
+            minPoint.x = value
+        }
 
-    fun minZ(): Int {
-        return minPoint.intZ()
-    }
+    var minY
+        get(): Double {
+            return minPoint.y
+        }
+        set(value) {
+            minPoint.y = value
+        }
 
-    fun maxX(): Int {
-        return minPoint.intX()
-    }
-
-    fun maxY(): Int {
-        return minPoint.intY()
-    }
-
-    fun maxZ(): Int {
-        return minPoint.intZ()
-    }
+    var minZ
+        get(): Double {
+            return minPoint.z
+        }
+        set(value) {
+            minPoint.z = value
+        }
+    var maxX
+        get(): Double {
+            return maxPoint.x
+        }
+        set(value) {
+            maxPoint.x = value
+        }
+    var maxY
+        get(): Double {
+            return maxPoint.y
+        }
+        set(value) {
+            maxPoint.y = value
+        }
+    var maxZ
+        get(): Double {
+            return maxPoint.z
+        }
+        set(value) {
+            maxPoint.z = value
+        }
 
     fun clone(): Cuboid {
         return Cuboid(this)
@@ -116,7 +138,7 @@ class Cuboid {
             false
         } else {
             val c = other
-            c.minPoint.equals(minPoint) && c.maxPoint.equals(maxPoint)
+            c.minPoint == minPoint && c.maxPoint == maxPoint
         }
     }
 
@@ -216,27 +238,26 @@ class Cuboid {
      * @return A new modified bounding box.
      */
     fun contract(x: Float, y: Float, z: Float): Cuboid {
-        var d0 = minX().toFloat()
-        var d1 = minY().toFloat()
-        var d2 = minZ().toFloat()
-        var d3 = maxX().toFloat()
-        var d4 = maxY().toFloat()
-        var d5 = maxZ().toFloat()
-        if (x < 0.0) {
+        var d0 = minX.toFloat()
+        var d1 = minY.toFloat()
+        var d2 = minZ.toFloat()
+        var d3 = maxX.toFloat()
+        var d4 = maxY.toFloat()
+        var d5 = maxZ.toFloat()
+        if (x < 0.0)
             d0 -= x
-        } else if (x > 0.0) {
+        else if (x > 0.0)
             d3 -= x
-        }
-        if (y < 0.0) {
+
+        if (y < 0.0)
             d1 -= y
-        } else if (y > 0.0) {
+        else if (y > 0.0)
             d4 -= y
-        }
-        if (z < 0.0) {
+        if (z < 0.0)
             d2 -= z
-        } else if (z > 0.0) {
+        else if (z > 0.0)
             d5 -= z
-        }
+
         return Cuboid(d0, d1, d2, d3, d4, d5)
     }
 
@@ -317,27 +338,26 @@ class Cuboid {
      * @return A modified bounding box that will always be equal or greater in
      * volume to this bounding box.
      */
-    fun expand(x: Float, y: Float, z: Float): Cuboid {
-        var d0 = minX().toFloat()
-        var d1 = minY().toFloat()
-        var d2 = minZ().toFloat()
-        var d3 = maxX().toFloat()
-        var d4 = maxY().toFloat()
-        var d5 = maxZ().toFloat()
-        if (x < 0.0) {
-            d0 += x
-        } else if (x > 0.0) {
-            d3 += x
-        }
-        if (y < 0.0) {
-            d1 += y
-        } else if (y > 0.0) {
-            d4 += y
-        }
-        if (z < 0.0) {
-            d2 += z
-        } else if (z > 0.0) {
-            d5 += z
+    fun expand(t: Tensor): Cuboid {
+        var d0 = minX
+        var d1 = minY
+        var d2 = minZ
+        var d3 = maxX
+        var d4 = maxY
+        var d5 = maxZ
+        if (t.x < 0.0)
+            d0 += t.x
+        else if (t.x > 0.0)
+            d3 += t.x
+        if (t.y < 0.0)
+            d1 += t.y
+        else if (t.y > 0.0)
+            d4 += t.y
+
+        if (t.z < 0.0)
+            d2 += t.z
+        else if (t.z > 0.0) {
+            d5 += t.z
         }
         return Cuboid(d0, d1, d2, d3, d4, d5)
     }
@@ -440,12 +460,12 @@ class Cuboid {
      * @return A modified bounding box.
      */
     fun grow(x: Float, y: Float, z: Float): Cuboid {
-        val d0 = minX() - x
-        val d1 = minY() - y
-        val d2 = minZ() - z
-        val d3 = maxX() + x
-        val d4 = maxY() + y
-        val d5 = maxZ() + z
+        val d0 = minX - x
+        val d1 = minY - y
+        val d2 = minZ - z
+        val d3 = maxX + x
+        val d4 = maxY + y
+        val d5 = maxZ + z
         return Cuboid(d0, d1, d2, d3, d4, d5)
     }
 
@@ -466,18 +486,18 @@ class Cuboid {
     }
 
     fun intersect(other: Cuboid): Cuboid {
-        val d0: Float = max(minX(), other.minX()).toFloat()
-        val d1: Float = max(minY(), other.minY()).toFloat()
-        val d2: Float = max(minZ(), other.minZ()).toFloat()
-        val d3: Float = min(maxX(), other.maxX()).toFloat()
-        val d4: Float = min(maxY(), other.maxY()).toFloat()
-        val d5: Float = min(maxZ(), other.maxZ()).toFloat()
+        val d0: Float = max(minX, other.minX).toFloat()
+        val d1: Float = max(minY, other.minY).toFloat()
+        val d2: Float = max(minZ, other.minZ).toFloat()
+        val d3: Float = min(maxX, other.maxX).toFloat()
+        val d4: Float = min(maxY, other.maxY).toFloat()
+        val d5: Float = min(maxZ, other.maxZ).toFloat()
         return Cuboid(d0, d1, d2, d3, d4, d5)
     }
 
     fun union(other: Cuboid): Cuboid {
-        val d0: Float = min(minX(), other.minX()).toFloat()
-        val d1: Float = min(minY(), other.minY()).toFloat()
+        val d0: Float = min(minX, other.minX()).toFloat()
+        val d1: Float = min(minYlol, other.minY()).toFloat()
         val d2: Float = min(minZ(), other.minZ()).toFloat()
         val d3: Float = max(maxX(), other.maxX()).toFloat()
         val d4: Float = max(maxY(), other.maxY()).toFloat()
@@ -634,19 +654,25 @@ class Cuboid {
             + maxZ() + "")
 
     fun toArray(size: Int): Array<DoubleArray> =
-        Tensor(minPoint.x(), minPoint.y(), minPoint.z(), maxPoint.x(), maxPoint.y(), maxPoint.z()).toArray(size)
+        Tensor(minX, minY, minZ, maxPoint.x(), maxPoint.y(), maxPoint.z()).toArray(size)
 
     fun toArrayString(size: Int): String =
         Tensor(minPoint.x(), minPoint.y(), minPoint.z(), maxPoint.x(), maxPoint.y(), maxPoint.z()).toArrayString(size)
 
     fun toArrayString(): String = this.toArrayString(3)
 
-    fun hasNaN(): Boolean = minX().toDouble().isNaN() ||
-        minY().toDouble().isNaN()
-        || minZ().toDouble().isNaN()
+    fun hasNaN(): Boolean = minX.toDouble().isNaN() ||
+        minY.toDouble().isNaN()
+        || minZ.toDouble().isNaN()
         || maxX().toDouble().isNaN() ||
         maxY().toDouble().isNaN()
         || maxZ().toDouble().isNaN()
+
+    override fun hashCode(): Int {
+        var result = minPoint.hashCode()
+        result = 31 * result + maxPoint.hashCode()
+        return result
+    }
 
     val center: Tensor
         get() = Tensor(
