@@ -3,6 +3,7 @@ package dev.throwouterror.util.math
 import kotlinx.serialization.Serializable
 import kotlin.math.abs
 import kotlin.math.floor
+import kotlin.math.roundToInt
 import kotlin.random.Random
 
 /**
@@ -99,13 +100,13 @@ enum class Direction(
     }
 
     val xOffset: Int
-        get() = facingVec.intX()
+        get() = facingVec.x.roundToInt()
 
     val yOffset: Int
-        get() = facingVec.intY()
+        get() = facingVec.y.roundToInt()
 
     val zOffset: Int
-        get() = facingVec.intZ()
+        get() = facingVec.z.roundToInt()
 
     val directionVec: Tensor
         get() = Tensor(
@@ -208,22 +209,22 @@ enum class Direction(
         private val axisValues: Array<Axis>
     ) : Iterable<Direction?> {
         HORIZONTAL(
-            arrayOf<Direction>(
+            arrayOf(
                 NORTH,
                 EAST,
                 SOUTH,
                 WEST
             ),
-            arrayOf<Axis>(
+            arrayOf(
                 Axis.X,
                 Axis.Z
             )
         ),
         VERTICAL(
-            arrayOf<Direction>(
+            arrayOf(
                 UP,
                 DOWN
-            ), arrayOf<Axis>(Axis.Y)
+            ), arrayOf(Axis.Y)
         );
 
         fun random(rand: Random): Direction {
@@ -316,8 +317,8 @@ enum class Direction(
             var f = Float.MIN_VALUE
             for (dir1 in VALUES) {
                 val f1 =
-                    x * dir1.facingVec.intX().toFloat() + y * dir1.facingVec.intY()
-                        .toFloat() + z * dir1.facingVec.intZ().toFloat()
+                    x * dir1.facingVec.x.toFloat() + y * dir1.facingVec.y
+                        .toFloat() + z * dir1.facingVec.z.toFloat()
                 if (f1 > f) {
                     f = f1
                     dir = dir1
