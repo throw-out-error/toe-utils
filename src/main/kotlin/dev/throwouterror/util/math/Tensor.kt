@@ -5,9 +5,8 @@
 
 package dev.throwouterror.util.math
 
-import kotlin.jvm.JvmStatic
-import kotlin.math.sqrt
 import kotlinx.serialization.Serializable
+import kotlin.math.sqrt
 
 @Serializable
 open class Tensor : Iterable<Double?> {
@@ -19,17 +18,17 @@ open class Tensor : Iterable<Double?> {
     /**
      * Creates a new tensor with the specified n-dimensional data.
      */
-    constructor(vararg data: Double) : this(data, intArrayOf(data.size)) {}
+    constructor(vararg data: Double) : this(data, intArrayOf(data.size))
 
     /**
      * Creates a new tensor with the specified n-dimensional data.
      */
-    constructor(vararg data: Float) : this(data.map { it.toDouble() }.toDoubleArray(), intArrayOf(data.size)) {}
+    constructor(vararg data: Float) : this(data.map { it.toDouble() }.toDoubleArray(), intArrayOf(data.size))
 
     /**
      * Creates a new tensor with the specified n-dimensional data.
      */
-    constructor(vararg data: Int) : this(data.map { it.toDouble() }.toDoubleArray(), intArrayOf(data.size)) {}
+    constructor(vararg data: Int) : this(data.map { it.toDouble() }.toDoubleArray(), intArrayOf(data.size))
 
     /**
      * Creates a new tensor with the specified n-dimensional data. This constructor
@@ -39,6 +38,20 @@ open class Tensor : Iterable<Double?> {
         data = newData
         dimensions = size
     }
+
+    fun set(vararg data: Double) {
+        if (data.size != this.data.size) throw Exception("Invalid size encountered while setting Tensor data")
+        this.data = data
+    }
+
+    fun set(vararg data: Float) {
+        this.set(*data.map { it.toDouble() }.toDoubleArray())
+    }
+
+    fun set(vararg data: Int) {
+        this.set(*data.map { it.toDouble() }.toDoubleArray())
+    }
+
 
     fun offset(dir: Direction, n: Int = 1): Tensor {
         return if (n == 0) this else clone().add(dir.directionVec).mul(n)

@@ -2,12 +2,9 @@ package dev.throwouterror.util.data
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import java.util.*
-import com.google.gson.*
-
-fun json(build: JsonObjectBuilder.() -> Unit): JsonObject {
-    return JsonObjectBuilder().json(build).asJsonObject
-}
 
 class JsonObjectBuilder(val gson: Gson = GsonBuilder().setPrettyPrinting().create()) {
     private val deque: Deque<JsonElement> = ArrayDeque()

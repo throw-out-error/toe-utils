@@ -35,5 +35,17 @@ version '0.0.1'
 dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.30'
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime:1.0-M1-1.4.0-rc'
-    implementation "com.google.code.gson:gson:$json_version"
+    implementation "com.google.code.gson:gson:2.8.6"
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = project.group
+            artifactId = "toe-utils"
+            version = project.version
+
+            from components.java
+        }
+    }
 }
