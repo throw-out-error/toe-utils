@@ -1,3 +1,5 @@
+package dev.throwouterror.util.math.generation
+
 import dev.throwouterror.util.math.Tensor
 import java.util.*
 import kotlin.math.sqrt
