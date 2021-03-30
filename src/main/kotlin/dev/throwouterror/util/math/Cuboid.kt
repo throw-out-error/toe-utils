@@ -515,8 +515,8 @@ class Cuboid {
         )
     }
 
-    fun offset(vec: Tensor?): Cuboid {
-        return Cuboid(minPoint.clone().add(vec!!), maxPoint.clone().add(vec))
+    fun offset(vec: Tensor): Cuboid {
+        return Cuboid(minPoint.clone().plus(vec), maxPoint.clone().plus(vec))
     }
 
     /**

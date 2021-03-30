@@ -54,17 +54,20 @@ open class Tensor : Iterable<Double?> {
 
 
     fun offset(dir: Direction, n: Int = 1): Tensor {
-        return if (n == 0) this else clone().add(dir.directionVec).mul(n)
+        return if (n == 0) this else clone().plus(dir.directionVec).times(n)
     }
 
     /**
      * @return A string representation of the multidimensional list.
      */
-    fun toArrayString(xSize: Int): String {
+    fun toArrayString(xSize: Int, spaces: Int = 4): String {
+        val spacing = (0..spaces).map {
+            " "
+        }.reduce { acc, s -> acc + s }
         return buildString {
             append("[\n")
             for (row in toArray(xSize)) {
-                append("  [")
+                append("${spacing}[")
                 for (elem in row) {
                     append(" $elem ")
                 }
@@ -86,7 +89,7 @@ open class Tensor : Iterable<Double?> {
 
     /**
      * @return the current Tensor that has been changed (**not a new
-     * one**). Normaliz()es the Tensor to length 1. Note that this
+     * one**). Normalizes the Tensor to length 1. Note that this
      * Tensor uses int values for coordinates.
      */
     fun normalize(): Tensor {
@@ -101,7 +104,7 @@ open class Tensor : Iterable<Double?> {
      * one**). Equivalent to mul(-1).
      */
     fun reverse(): Tensor {
-        mul(-1)
+        times(-1)
         return this
     }
 
@@ -139,33 +142,26 @@ open class Tensor : Iterable<Double?> {
      * @return the current Tensor that has been changed (**not a new
      * one**).
      */
-    fun add(other: Tensor): Tensor {
-        for (f in data.indices) {
-            data[f] = f + other.data[f]
-        }
-        return this
+    operator fun plus(other: Tensor): Tensor {
+        val t = zeroes(other.dimensions)
+
+        for (f in data.indices)
+            t.data[f] = f + other.data[f]
+
+        return t
     }
 
-    fun add(factor: Float): Tensor {
-        return this.map { v: Double -> v + factor }
-    }
-
-    /**
-     * @param factor to multiply() with
-     * @return the current Tensor that has been changed (**not a new
-     * one**).
-     */
-    fun add(factor: Double): Tensor {
-        return add(factor.toFloat())
+    operator fun plus(other: Number): Tensor {
+        return this.map { v: Double -> v + other.toDouble() }
     }
 
     /**
-     * @param factor to multiply() with
+     * @param other to multiply() with
      * @return the current Tensor that has been changed (**not a new
      * one**).
      */
-    fun add(factor: Int): Tensor {
-        return add(factor.toFloat())
+    operator fun plus(other: Double): Tensor {
+        return plus(other.toFloat())
     }
 
     /**
@@ -173,61 +169,27 @@ open class Tensor : Iterable<Double?> {
      * @return the current Tensor that has been changed (**not a new
      * one**).
      */
-    fun sub(other: Tensor): Tensor {
-        for (f in data.indices) {
-            data[f] = f - other.data[f]
+    operator fun minus(other: Tensor): Tensor {
+        return this.mapIndexed { i, v ->
+            v - other.data[i]
         }
-        return this
     }
 
-    fun sub(factor: Float): Tensor {
-        return this.map { v: Double -> v - factor }
-    }
-
-    /**
-     * @param factor to multiply() with
-     * @return the current Tensor that has been changed (**not a new
-     * one**).
-     */
-    fun sub(factor: Double): Tensor {
-        return sub(factor.toFloat())
+    operator fun minus(other: Number): Tensor {
+        return this.map { v ->
+            v - other.toDouble()
+        }
     }
 
     /**
-     * @param factor to multiply() with
+     * @param other to multiply() with
      * @return the current Tensor that has been changed (**not a new
      * one**).
      */
-    fun sub(factor: Int): Tensor {
-        return sub(factor.toFloat())
-    }
-
-    /**
-     * @param factor to multiply() with
-     * @return the current Tensor that has been changed (**not a new
-     * one**).
-     */
-    fun mul(factor: Float): Tensor {
-        this.map { v: Double -> v * factor }
-        return this
-    }
-
-    /**
-     * @param factor to multiply() with
-     * @return the current Tensor that has been changed (**not a new
-     * one**).
-     */
-    fun mul(factor: Double): Tensor {
-        return mul(factor.toFloat())
-    }
-
-    /**
-     * @param factor to multiply() with
-     * @return the current Tensor that has been changed (**not a new
-     * one**).
-     */
-    fun mul(factor: Int): Tensor {
-        return mul(factor.toFloat())
+    operator fun times(other: Number): Tensor {
+        return this.map { v ->
+            v * other.toDouble()
+        }
     }
 
     override fun toString(): String {
@@ -271,12 +233,18 @@ open class Tensor : Iterable<Double?> {
     }
 
     fun map(valueMapper: (Double) -> Double): Tensor {
-        data = data.map(valueMapper).toDoubleArray()
+        data.map(valueMapper).toDoubleArray()
         return this
     }
 
-    fun forEach(action: (Double) -> Unit) {
+    fun mapIndexed(valueMapper: (Int, Double) -> Double): Tensor {
+        data.mapIndexed(valueMapper).toDoubleArray()
+        return this
+    }
+
+    fun forEach(action: (Double) -> Unit): Tensor {
         data.forEach(action)
+        return this
     }
 
     fun contains(min: Tensor, max: Tensor): Boolean {
@@ -284,6 +252,11 @@ open class Tensor : Iterable<Double?> {
             if (min.data[i] > data[i] || max.data[i] < data[i]) return false
         }
         return true
+    }
+
+    fun transpose(): Tensor {
+        this.dimensions.reverse()
+        return this
     }
 
     fun setValueByAxis(axis: Direction.Axis?, valueAt: Double): Tensor {
@@ -310,6 +283,8 @@ open class Tensor : Iterable<Double?> {
     fun clone(): Tensor {
         return Tensor(data, dimensions)
     }
+
+    fun reset() = this.set(*zeroes(this.dimensions).data)
 
     override operator fun iterator(): Iterator<Double> = object : Iterator<Double> {
         var current = 0
@@ -339,11 +314,14 @@ open class Tensor : Iterable<Double?> {
         /**
          * An empty Tensor with 1 dimension (aka Scalar).
          */
+
+        @JvmStatic
         val ZERO = zeroes(intArrayOf(1))
 
         /**
          * An empty Tensor with 3 dimensions (aka Vector).
          */
+        @JvmStatic
         val VECTOR_ZERO = zeroes(intArrayOf(3))
 
         @JvmStatic
