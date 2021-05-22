@@ -39,17 +39,18 @@ open class Tensor : Iterable<Double?> {
         dimensions = size
     }
 
-    fun set(vararg data: Double) {
+    fun set(vararg data: Double): Tensor {
         if (data.size != this.data.size) throw Exception("Invalid size encountered while setting Tensor data")
         this.data = data
+        return this
     }
 
-    fun set(vararg data: Float) {
-        this.set(*data.map { it.toDouble() }.toDoubleArray())
+    fun set(vararg data: Float): Tensor {
+        return this.set(*data.map { it.toDouble() }.toDoubleArray())
     }
 
-    fun set(vararg data: Int) {
-        this.set(*data.map { it.toDouble() }.toDoubleArray())
+    fun set(vararg data: Int): Tensor {
+        return this.set(*data.map { it.toDouble() }.toDoubleArray())
     }
 
 
@@ -68,9 +69,8 @@ open class Tensor : Iterable<Double?> {
             append("[\n")
             for (row in toArray(xSize)) {
                 append("${spacing}[")
-                for (elem in row) {
+                for (elem in row)
                     append(" $elem ")
-                }
                 append("]\n")
             }
             append("]\n")
