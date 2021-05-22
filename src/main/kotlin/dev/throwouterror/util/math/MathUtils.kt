@@ -25,5 +25,4 @@ object MathUtils {
     fun vectorOf(v: Tensor, z: Double = 0.0, w: Double = 0.0) = vectorOf(v.x, v.y, z, w)
     fun vectorOf(v: Tensor, w: Double = 0.0) = vectorOf(v.x, v.y, v.z, w)
     fun vectorOf(v: Tensor) = vectorOf(v.x, v.y, v.z, v.w)
-
 }
