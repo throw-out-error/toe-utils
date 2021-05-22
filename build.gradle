@@ -13,7 +13,6 @@ buildscript {
     }
 }
 
-apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: "kotlin" // or 'kotlin-multiplatform' for multiplatform projects
 apply plugin: "kotlinx-serialization"
