@@ -3,11 +3,11 @@ package dev.throwouterror.util.math
 import kotlin.math.PI
 
 object MathUtils {
-    const val INV_PI = 1.0 / PI
-    const val HALF_PI = PI * 0.5
-    const val TWO_PI = PI * 2.0
+    const val invPi = 1.0 / PI
+    const val halfPi = PI * 0.5
+    const val twoPi = PI * 2.0
 
-    fun degrees(v: Double) = v * (180.0 * INV_PI)
+    fun degrees(v: Double) = v * (180.0 * invPi)
 
     fun radians(v: Double) = v * (PI / 180.0)
 

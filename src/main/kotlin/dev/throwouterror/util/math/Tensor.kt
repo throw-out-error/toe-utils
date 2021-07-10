@@ -53,7 +53,6 @@ open class Tensor : Iterable<Double?> {
         return this.set(*data.map { it.toDouble() }.toDoubleArray())
     }
 
-
     fun offset(dir: Direction, n: Int = 1): Tensor {
         return if (n == 0) this else clone().plus(dir.directionVec).times(n)
     }
@@ -68,7 +67,7 @@ open class Tensor : Iterable<Double?> {
         return buildString {
             append("[\n")
             for (row in toArray(xSize)) {
-                append("${spacing}[")
+                append("$spacing[")
                 for (elem in row)
                     append(" $elem ")
                 append("]\n")
@@ -316,13 +315,13 @@ open class Tensor : Iterable<Double?> {
          */
 
         @JvmStatic
-        val ZERO = zeroes(intArrayOf(1))
+        val zero = zeroes(intArrayOf(1))
 
         /**
          * An empty Tensor with 3 dimensions (aka Vector).
          */
         @JvmStatic
-        val VECTOR_ZERO = zeroes(intArrayOf(3))
+        val vectorZero = zeroes(intArrayOf(3))
 
         @JvmStatic
         fun intersects(min: Tensor, max: Tensor): Boolean {

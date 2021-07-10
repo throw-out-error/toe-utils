@@ -154,76 +154,76 @@ class Cuboid {
      * <tr>
      * <th>Input</th>
      * <th>Result</th>
-    </tr> *
+     </tr> *
      * <tr>
      * <td>
      *
      * <pre>
      * `new AxisAlignedBB(0, 0, 0, 4, 4, 4).contract(2, 2, 2)`
-    </pre> *
+     </pre> *
      *
-    </td> *
+     </td> *
      * <td>
      *
      * <pre>
      * <samp>box[0.0,
      * 0.0, 0.0 -> 2.0, 2.0, 2.0]</samp>
-    </pre> *
+     </pre> *
      *
-    </td> *
-    </tr> *
+     </td> *
+     </tr> *
      * <tr>
      * <td>
      *
      * <pre>
      * `new AxisAlignedBB(0, 0, 0, 4, 4, 4).contract(-2, -2, -
      * 2)`
-    </pre> *
+     </pre> *
      *
-    </td> *
+     </td> *
      * <td>
      *
      * <pre>
      * <samp>box[2.0, 2.0, 2.0 -> 4.0, 4.0, 4.0]</samp>
-    </pre> *
+     </pre> *
      *
-    </td> *
-    </tr> *
+     </td> *
+     </tr> *
      * <tr>
      * <td>
      *
      * <pre>
      * `new AxisAlignedBB(5, 5, 5, 7, 7, 7).contract(0, 1, -
      * 1)`
-    </pre> *
+     </pre> *
      *
-    </td> *
+     </td> *
      * <td>
      *
      * <pre>
      * <samp>box[5.0, 5.0, 6.0 -> 7.0, 6.0, 7.0]</samp>
-    </pre> *
+     </pre> *
      *
-    </td> *
-    </tr> *
+     </td> *
+     </tr> *
      * <tr>
      * <td>
      *
      * <pre>
      * `new AxisAlignedBB(-2, -2, -2, 2, 2, 2).contract(4, -4,
      * 0)`
-    </pre> *
+     </pre> *
      *
-    </td> *
+     </td> *
      * <td>
      *
      * <pre>
      * <samp>box[-8.0, 2.0, -2.0 -> -2.0, 8.0, 2.0]</samp>
-    </pre> *
+     </pre> *
      *
-    </td> *
-    </tr> *
-    </table> *
+     </td> *
+     </tr> *
+     </table> *
      *
      * <h3>See Also:</h3>
      *
@@ -271,59 +271,59 @@ class Cuboid {
      * <tr>
      * <th>Input</th>
      * <th>Result</th>
-    </tr> *
+     </tr> *
      * <tr>
      * <td>
      *
      * <pre>
      * `new AxisAlignedBB(0, 0, 0, 1, 1, 1).expand(2, 2, 2)`
-    </pre> *
+     </pre> *
      *
-    </td> *
+     </td> *
      * <td>
      *
      * <pre>
      * <samp>box[0, 0,
      * 0 -> 3, 3, 3]</samp>
-    </pre> *
+     </pre> *
      *
-    </td> *
+     </td> *
      * <td>
-    </td></tr> * <tr>
+     </td></tr> * <tr>
      * <td>
      *
      * <pre>
      * `new AxisAlignedBB(0, 0, 0, 1, 1, 1).expand(-2, -2, -2)`
-    </pre> *
+     </pre> *
      *
-    </td> *
+     </td> *
      * <td>
      *
      * <pre>
      * <samp>box[-2,
      * -2, -2 -> 1, 1, 1]</samp>
-    </pre> *
+     </pre> *
      *
-    </td> *
+     </td> *
      * <td>
-    </td></tr> * <tr>
+     </td></tr> * <tr>
      * <td>
      *
      * <pre>
      * `new AxisAlignedBB(5, 5, 5, 7, 7, 7).expand(0, 1, -1)`
-    </pre> *
+     </pre> *
      *
-    </td> *
+     </td> *
      * <td>
      *
      * <pre>
      * <samp>box[5, 5,
      * 4, 7, 8, 7]</samp>
-    </pre> *
+     </pre> *
      *
-    </td> *
+     </td> *
      * <td>
-    </td></tr></table> *
+     </td></tr></table> *
      *
      * <h3>See Also:</h3>
      *
@@ -376,76 +376,76 @@ class Cuboid {
      * <tr>
      * <th>Input</th>
      * <th>Result</th>
-    </tr> *
+     </tr> *
      * <tr>
      * <td>
      *
      * <pre>
      * `new AxisAlignedBB(0, 0, 0, 1, 1, 1).grow(2, 2, 2)`
-    </pre> *
+     </pre> *
      *
-    </td> *
+     </td> *
      * <td>
      *
      * <pre>
      * <samp>box[-2.0, -
      * 2.0, -2.0 -> 3.0, 3.0, 3.0]</samp>
-    </pre> *
+     </pre> *
      *
-    </td> *
-    </tr> *
+     </td> *
+     </tr> *
      * <tr>
      * <td>
      *
      * <pre>
      * `new AxisAlignedBB(0, 0, 0, 6, 6, 6).grow(-2, -2, -2)`
-    </pre> *
+     </pre> *
      *
-    </td> *
+     </td> *
      * <td>
      *
      * <pre>
      * <samp>box[2.0,
      * 2.0, 2.0 -> 4.0, 4.0, 4.0]</samp>
-    </pre> *
+     </pre> *
      *
-    </td> *
-    </tr> *
+     </td> *
+     </tr> *
      * <tr>
      * <td>
      *
      * <pre>
      * `new AxisAlignedBB(5, 5, 5, 7, 7, 7).grow(0, 1, -1)`
-    </pre> *
+     </pre> *
      *
-    </td> *
+     </td> *
      * <td>
      *
      * <pre>
      * <samp>box[5.0,
      * 4.0, 6.0 -> 7.0, 8.0, 6.0]</samp>
-    </pre> *
+     </pre> *
      *
-    </td> *
-    </tr> *
+     </td> *
+     </tr> *
      * <tr>
      * <td>
      *
      * <pre>
      * `new AxisAlignedBB(1, 1, 1, 3, 3, 3).grow(-4, -2, -3)`
-    </pre> *
+     </pre> *
      *
-    </td> *
+     </td> *
      * <td>
      *
      * <pre>
      * <samp>box[-1.0,
      * 1.0, 0.0 -> 5.0, 3.0, 4.0]</samp>
-    </pre> *
+     </pre> *
      *
-    </td> *
-    </tr> *
-    </table> *
+     </td> *
+     </tr> *
+     </table> *
      *
      * <h3>See Also:</h3>
      *
@@ -455,7 +455,7 @@ class Cuboid {
      * direction. <lu>[.grow] - version of this that expands in
      * all directions from one parameter.
      *  * [.shrink] - contracts in all directions
-    </lu> *
+     </lu> *
      *
      * @return A modified bounding box.
      */
@@ -650,8 +650,10 @@ class Cuboid {
     }
 
     override fun toString(): String =
-        ("" + minX + "," + minY + "," + minZ + ":" + maxX + "," + maxY + ","
-            + maxZ + "")
+        (
+            "" + minX + "," + minY + "," + minZ + ":" + maxX + "," + maxY + "," +
+                maxZ + ""
+            )
 
     fun toArray(size: Int): Array<DoubleArray> =
         Tensor(minX, minY, minZ, maxPoint.x, maxPoint.y, maxPoint.z).toArray(size)
@@ -662,11 +664,11 @@ class Cuboid {
     fun toArrayString(): String = this.toArrayString(3)
 
     fun hasNaN(): Boolean = minX.toDouble().isNaN() ||
-        minY.toDouble().isNaN()
-        || minZ.toDouble().isNaN()
-        || maxX.toDouble().isNaN() ||
-        maxY.toDouble().isNaN()
-        || maxZ.toDouble().isNaN()
+        minY.toDouble().isNaN() ||
+        minZ.toDouble().isNaN() ||
+        maxX.toDouble().isNaN() ||
+        maxY.toDouble().isNaN() ||
+        maxZ.toDouble().isNaN()
 
     override fun hashCode(): Int {
         var result = minPoint.hashCode()
@@ -689,8 +691,8 @@ class Cuboid {
     }
 
     companion object {
-        val AIR = Cuboid(0, 0, 0, 0, 0, 0)
-        val FULL_CUBE = Cuboid(0, 0, 0, 1, 1, 1)
+        val air = Cuboid(0, 0, 0, 0, 0, 0)
+        val fullCube = Cuboid(0, 0, 0, 1, 1, 1)
 
         fun fromString(s: String): Cuboid {
             val minMax = s.split(":")

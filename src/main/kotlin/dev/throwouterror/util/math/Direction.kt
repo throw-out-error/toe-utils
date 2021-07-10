@@ -192,7 +192,6 @@ enum class Direction(
                 return values()[p_218393_0_.nextInt(values().size)]
             }
         }
-
     }
 
     enum class AxisDirection(val offset: Int, private val description: String) {
@@ -201,7 +200,6 @@ enum class Direction(
         override fun toString(): String {
             return description
         }
-
     }
 
     enum class Plane(
@@ -224,7 +222,8 @@ enum class Direction(
             arrayOf(
                 UP,
                 DOWN
-            ), arrayOf(Axis.Y)
+            ),
+            arrayOf(Axis.Y)
         );
 
         fun random(rand: Random): Direction {
@@ -238,17 +237,16 @@ enum class Direction(
         override fun iterator(): Iterator<Direction> {
             return facingValues.iterator()
         }
-
     }
 
     companion object {
-        private val VALUES =
+        private val values =
             values()
-        private val NAME_LOOKUP: Map<String, Direction> =
+        private val nameLookup: Map<String, Direction> =
             values().associateBy { obj -> obj.id }
-        private val BY_INDEX: Array<Direction> =
+        private val byIndex: Array<Direction> =
             values().sortedBy { obj -> obj.index }.toTypedArray()
-        private val BY_HORIZONTAL_INDEX: Array<Direction> =
+        private val byHorizontalIndex: Array<Direction> =
             values().filter { obj -> obj.axis.isHorizontal }
                 .sortedBy { obj -> obj.horizontalIndex }
                 .toTypedArray()
@@ -269,15 +267,15 @@ enum class Direction(
         }
 
         fun byName(name: String?): Direction? {
-            return if (name == null) null else NAME_LOOKUP[name.toLowerCase()]
+            return if (name == null) null else nameLookup[name.toLowerCase()]
         }
 
         fun byIndex(index: Int): Direction {
-            return BY_INDEX[abs(index % BY_INDEX.size)]
+            return byIndex[abs(index % byIndex.size)]
         }
 
         fun byHorizontalIndex(horizontalIndexIn: Int): Direction {
-            return BY_HORIZONTAL_INDEX[abs(horizontalIndexIn % BY_HORIZONTAL_INDEX.size)]
+            return byHorizontalIndex[abs(horizontalIndexIn % byHorizontalIndex.size)]
         }
 
         fun fromAngle(angle: Double): Direction {
@@ -315,7 +313,7 @@ enum class Direction(
         fun getFacingFromTensor(x: Float, y: Float, z: Float): Direction {
             var dir = NORTH
             var f = Float.MIN_VALUE
-            for (dir1 in VALUES) {
+            for (dir1 in values) {
                 val f1 =
                     x * dir1.facingVec.x.toFloat() + y * dir1.facingVec.y
                         .toFloat() + z * dir1.facingVec.z.toFloat()
@@ -339,5 +337,4 @@ enum class Direction(
             throw IllegalArgumentException("No such Facing: $AxisDirectionIn $axisIn")
         }
     }
-
 }

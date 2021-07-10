@@ -8,7 +8,6 @@ import kotlin.math.sin
 import kotlin.math.tan
 
 object MatrixUtils {
-    // TODO: move to toe-utils directly
     fun Tensor.identity(): Tensor {
         this.data[0] = 1.0
         this.data[1] = 0.0
@@ -110,13 +109,15 @@ object MatrixUtils {
         val ns = intArrayOf(size, size)
         if (data.isEmpty()) return Tensor.zeroes(ns)
 
-        return Tensor(data.map {
-            it.data
-        }.reduce { d1, d2 ->
-            d1 + d2
-        }, ns)
+        return Tensor(
+            data.map {
+                it.data
+            }.reduce { d1, d2 ->
+                d1 + d2
+            },
+            ns
+        )
     }
-
 
     fun Tensor.rotation(angle: Double): Tensor {
         val x = this.x
@@ -136,7 +137,6 @@ object MatrixUtils {
             Tensor(0.0, 0.0, 0.0, 1.0)
         )
     }
-
 
     fun lookAt(eye: Tensor, target: Tensor, up: Tensor = Tensor(0.0, 0.0, 1.0)): Tensor {
         return lookTowards(eye, target - eye, up)
@@ -171,5 +171,3 @@ object MatrixUtils {
         Tensor(-(r + l) / (r - l), -(t + b) / (t - b), -(f + n) / (f - n), 1.0)
     )
 }
-
-
